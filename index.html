@@ -4,13 +4,17 @@
 <body>
 
     <script type="text/javascript">
+        function capitalize(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
         function getPokemon(name) {
-            console.log("call");
-            var apiUrl = 'https://pokeapi.co/api/v2/pokemon/pikachu/';
+            var apiUrl = 'https://pokeapi.co/api/v2/pokemon/' + name;
             fetch(apiUrl).then(response => {
                 return response.json();
             }).then(data => {
-                // Work with JSON data here
+                document.getElementById("name").innerHTML = capitalize(data.name);
+                document.getElementById("sprite").src = data.sprites.front_default;
                 console.log(data);
             }).catch(err => {
                 console.log("error");
@@ -19,9 +23,23 @@
     </script>
 
     <input id="text" type="text" value="" style="Width:20%" />
-    <button onclick="getPokemon()">Find PokeMon By Name</button>
+    <button onclick="getPokemon(document.getElementById('text').value)">Find PokeMon By Name</button>
 
     <p>Results</p>
+    <table>
+        <thead>
+            <td>Sprite</td>
+            <td>Name</td>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <img id="sprite">
+                </td>
+                <td id="name"></td>
+            </tr>
+        </tbody>
+    </table>
 
 </body>
 
