@@ -15,6 +15,8 @@
             }).then(data => {
                 document.getElementById("name").innerHTML = capitalize(data.name);
                 document.getElementById("sprite").src = data.sprites.front_default;
+                document.getElementById('types').innerHTML = '';
+                data.types.forEach(entry => document.getElementById('types').innerHTML += capitalize(entry.type.name + '\t'));
                 console.log(data);
             }).catch(err => {
                 console.log("error");
@@ -30,6 +32,7 @@
         <thead>
             <td>Sprite</td>
             <td>Name</td>
+            <td>Type(s)</td>
         </thead>
         <tbody>
             <tr>
@@ -37,6 +40,7 @@
                     <img id="sprite">
                 </td>
                 <td id="name"></td>
+                <td id="types"></td>
             </tr>
         </tbody>
     </table>
